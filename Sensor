@@ -1,0 +1,60 @@
+const int led = PC13;
+
+void setup() {
+  // put your setup code here, to run once:
+ Serial.begin(9600);
+  pinMode(PA2, OUTPUT); 
+  pinMode(PA1, INPUT);  
+  pinMode(led, OUTPUT);
+  digitalWrite(PA2, HIGH);
+}
+
+
+
+void loop() {
+  // put your main code here, to run repeatedly:
+ int  t; 
+ int  d; 
+
+  digitalWrite(PA2, HIGH);
+  delayMicroseconds(10);       
+  digitalWrite(PA2, LOW);
+  
+  t = pulseIn(PA1, HIGH); 
+  d = t/59; 
+              
+  
+  Serial.print("Distancia: ");
+  Serial.print(d);      
+  Serial.print("cm");
+  Serial.println();
+  delay(100);      
+
+if(d >0 && d<21){
+  Serial.print("PARE AUTOOO!! ");
+  prender();
+}else{
+    if(d>=21 && d<40){
+        Serial.print("precaucion");
+        tintile();
+      }else{
+        Serial.print("RELAJADO PAPA");
+        apagar();
+        }
+   }
+}
+void tintile(){
+  digitalWrite(led, HIGH);
+  delay(200);
+  digitalWrite(led, LOW);
+  
+  }
+void prender(){
+   digitalWrite(led, HIGH);
+  delay (1001);
+  }
+
+void apagar(){
+   digitalWrite(led, LOW );
+  delay (1001);
+  }  
